@@ -8,15 +8,24 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@clerk/nextjs": "^4.25.4",
+    "@prisma/client": "^5.4.2",
     "@radix-ui/react-slot": "^1.0.2",
+    "axios": "^1.5.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.287.0",
     "next": "13.5.5",
+    "prisma": "^5.4.2",
     "react": "^18",
     "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^4.11.0",
+    "react-spinners": "^0.13.8",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -29,6 +38,7 @@
     "eslint-config-next": "13.5.5",
     "postcss": "^8",
     "tailwindcss": "^3",
+    "ts-node": "^10.9.1",
     "typescript": "^5"
   }
 }

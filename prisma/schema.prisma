@@ -1,0 +1,50 @@
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model LeadMagnet {
+  id                     String    @id @default(uuid())
+  userId                 String
+  name                   String
+  status                 String
+  slug                   String?
+  publishedTitle         String    @db.Text
+  draftTitle             String    @db.Text
+  publishedSubtitle      String    @db.Text
+  draftSubtitle          String    @db.Text
+  publishedPrompt        String    @db.Text
+  draftPrompt            String    @db.Text
+  publishedBody          String    @db.Text
+  draftBody              String    @db.Text
+  publishedFirstQuestion String    @db.Text
+  draftFirstQuestion     String    @db.Text
+  publishedEmailCapture  String    @db.Text
+  draftEmailCapture      String    @db.Text
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @default(now())
+  publishedAt            DateTime? @db.DateTime
+  pageViews              Int       @default(0)
+  leads                  Lead[]
+
+  @@unique([userId, slug])
+}
+
+model Lead {
+  id           String     @id @default(uuid())
+  userId       String
+  leadMagnetId String
+  name         String
+  email        String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @default(now())
+  LeadMagnet   LeadMagnet @relation(fields: [leadMagnetId], references: [id], onDelete: Cascade)
+
+  @@index([leadMagnetId])
+  @@index([userId])
+}
