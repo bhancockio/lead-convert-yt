@@ -1,6 +1,7 @@
 import { useProfileEditorContext } from "@/context/ProfileEditorContext";
 import { UploadButton } from "@/utils/uploadthing";
 import React from "react";
+import toast from "react-hot-toast";
 
 export function LeadMagnetProfileEditor() {
   const { edittedProfile, setEdittedProfile } = useProfileEditorContext();
@@ -22,7 +23,7 @@ export function LeadMagnetProfileEditor() {
               // Do something with the response
               console.log("Files: ", res);
               if (res && (res?.length ?? 0) > 0) {
-                toast.success();
+                toast.success("Successfully uploaded image!");
                 const file = res[0];
                 file &&
                   setEdittedProfile((prev) => ({
