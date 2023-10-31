@@ -67,6 +67,7 @@ export const LeadMagnetEditorContextProvider = ({
       });
 
       if (response.data.data) {
+        setEdittedLeadMagnet(response.data.data);
         toast.success("Lead Magnet published successfully");
       }
     } catch (error) {

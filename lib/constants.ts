@@ -1,0 +1,1 @@
+export const MAXIMUM_FREE_LEAD_MAGNETS = 2;

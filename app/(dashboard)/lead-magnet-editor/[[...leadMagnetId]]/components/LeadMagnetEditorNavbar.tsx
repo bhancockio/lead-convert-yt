@@ -8,17 +8,20 @@ import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useProfileEditorContext } from "@/context/ProfileEditorContext";
 
 function LeadMagnetEditorNavbar() {
   const router = useRouter();
   const {
     edittedLeadMagnet,
     setEdittedLeadMagnet,
-    save,
+    save: saveLeadMagnet,
     publish,
     unpublish,
     remove,
   } = useLeadMagnetEditorContext();
+
+  const { save: saveProfile, account } = useProfileEditorContext();
 
   const [editing, setEditing] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
@@ -30,8 +33,9 @@ function LeadMagnetEditorNavbar() {
 
   const saveName = async () => {
     try {
-      await save();
-      toast.success("Saved!");
+      await saveLeadMagnet();
+      toast.success("Saved!"); // TODO:
+      setEditing(false);
     } catch (error) {
       console.log(error);
       toast.error("Error saving name. Please try again.");
@@ -45,7 +49,8 @@ function LeadMagnetEditorNavbar() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      await save();
+      await saveLeadMagnet();
+      await saveProfile();
       toast.success("Saved!");
     } catch (error) {
       console.log(error);
@@ -86,6 +91,7 @@ function LeadMagnetEditorNavbar() {
     try {
       await remove();
       toast.success("Deleted!");
+      router.push("/lead-magnets");
     } catch (error) {
       console.log(error);
       toast.error("Error deleting. Please try again.");
@@ -152,13 +158,14 @@ function LeadMagnetEditorNavbar() {
         {/* Unpublish and View Final LM */}
         {edittedLeadMagnet.status === "published" && (
           <>
-            <Button onClick={handleUnpublish}>
+            <Button variant="outline" onClick={handleUnpublish}>
               {unpublishing ? "Unpublishing..." : "Unpublish"}
             </Button>
-            {/* TODO: CHANGE TEST TO ACCOUNT USERNAME */}
-            <Link href={`/lm/test/${edittedLeadMagnet.slug}`}>
-              <Button>View Published</Button>
-            </Link>
+            {account && (
+              <Link href={`/lm/${account?.username}/${edittedLeadMagnet.slug}`}>
+                <Button variant="outline">View Published</Button>
+              </Link>
+            )}
           </>
         )}
         {/* Save & Publish with state */}

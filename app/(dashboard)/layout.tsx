@@ -1,4 +1,5 @@
 import DashboardNavbar from "@/components/DashboardNavbar";
+import { Toaster } from "react-hot-toast";
 
 export default function DashboardLayout({
   children,
@@ -9,6 +10,7 @@ export default function DashboardLayout({
     <div className="flex flex-col h-full w-full">
       <DashboardNavbar />
       {children}
+      <Toaster />
     </div>
   );
 }

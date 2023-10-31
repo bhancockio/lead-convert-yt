@@ -51,7 +51,14 @@ function LeadMagnetTable({ leadMagnets, leads }: LeadMagnetTableProps) {
       <TableBody>
         {leadMagnets.map((leadMagnet) => (
           <TableRow key={leadMagnet.id}>
-            <TableCell>{leadMagnet.name}</TableCell>
+            <TableCell>
+              <Link
+                className="text-lg"
+                href={`/lead-magnet-editor/${leadMagnet.id}`}
+              >
+                {leadMagnet.name}
+              </Link>
+            </TableCell>
             <TableCell>{leadMagnet.pageViews}</TableCell>
             <TableCell>{getLeadsForLeadMagnet(leadMagnet.id)}</TableCell>
             <TableCell>
